@@ -1,0 +1,26 @@
+import org.junit.*;
+import static org.junit.Assert.*;
+
+public class DijkstraTest{
+    private PlayBoard board;
+    @Before
+	public void buildGraph(){
+	board = new PlayBoard(10,10);
+    }
+    @Test
+	public void graphIsLegible(){
+	assertEquals(100,board.vertices.length);
+	/*
+	    8 * 10 * 10 vertices
+	  - 5 * 4 on the corners
+	  - 3 * 8 * 4 on the sides
+	  = 800 - 20 - 96
+	  = 686 edges
+	 */
+    }
+    @Test
+	public void graphSolves(){
+	assertEquals(9,board.solve().size());
+    }
+}
+
