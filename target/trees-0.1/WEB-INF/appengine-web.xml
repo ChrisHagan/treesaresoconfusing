@@ -3,4 +3,5 @@
   <application>stackable</application>
   <version>0.1</version>
   <threadsafe>true</threadsafe>
+  <public-root>/static</public-root>
 </appengine-web-app>

@@ -1,0 +1,30 @@
+<html>
+  <head>
+    <script src="/closure-library/closure/goog/base.js"></script>
+    <script>
+      goog.require("goog.dom");
+      goog.require("goog.events");
+      goog.require("goog.net.XhrIo");
+      goog.require("goog.json.Serializer");
+      goog.require("goog.string.format");
+    </script>
+    <style>
+      #board{
+      border:2px solid black;
+      width:100%;
+      height:100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="board">Board goes here</div>
+    <script>
+      channelIdentity = {
+      token:"TOKEN"
+      };
+    </script>
+    <script type="text/javascript" src="/_ah/channel/jsapi"></script>
+    <script src="/establishChannel.js"></script>
+    <script src="/eventHandling.js"></script>
+  </body>
+</html>

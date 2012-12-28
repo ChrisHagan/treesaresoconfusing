@@ -1,0 +1,4 @@
+package game;
+
+public class RocketServer extends HttpServer{
+}
