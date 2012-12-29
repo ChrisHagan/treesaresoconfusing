@@ -7,17 +7,23 @@
       goog.require("goog.net.XhrIo");
       goog.require("goog.json.Serializer");
       goog.require("goog.string.format");
+      goog.require("goog.json");
     </script>
     <style>
+      body{
+      background-color:darkgray;
+      }
       #board{
       border:2px solid black;
-      width:100%;
-      height:100%;
       }
     </style>
   </head>
   <body>
-    <div id="board">Board goes here</div>
+    <canvas id="board" width="400" height="400"></canvas>
+    <div id="tick">Tick</div>
+    <script src="/dimensions.js"></script>
+    <script src="/roster.js"></script>
+    <script src="/boardRendering.js"></script>
     <script>
       channelIdentity = {
       token:"TOKEN"
@@ -26,5 +32,7 @@
     <script type="text/javascript" src="/_ah/channel/jsapi"></script>
     <script src="/establishChannel.js"></script>
     <script src="/eventHandling.js"></script>
+    <script src="/requestAnimFrame.js"></script>
+    <script src="/renderLoop.js"></script>
   </body>
 </html>

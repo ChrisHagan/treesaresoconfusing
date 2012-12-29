@@ -20,6 +20,14 @@
     <servlet-name>rockets</servlet-name>
     <url-pattern>/launch</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>tick</servlet-name>
+    <servlet-class>game.TickServer</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>tick</servlet-name>
+    <url-pattern>/tick</url-pattern>
+  </servlet-mapping>
   <security-constraint>
     <web-resource-collection>
       <url-pattern>/game</url-pattern>
