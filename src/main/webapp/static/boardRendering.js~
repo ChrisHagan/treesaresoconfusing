@@ -1,0 +1,1 @@
+var context = goog.dom.getElement("").getContext("2d");

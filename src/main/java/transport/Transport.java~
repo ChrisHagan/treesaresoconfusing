@@ -1,0 +1,18 @@
+package transport;
+
+import game.*;
+
+public class Transport{
+    public static class PlayerUpdate{
+	private String identity;
+	private Long x;
+	private Long y;
+	private String type = Server.PLAYER;
+
+	public PlayerUpdate(String identity, Long x, Long y){
+	    this.identity = identity;
+	    this.x = x;
+	    this.y = y;
+	}
+    }
+}
