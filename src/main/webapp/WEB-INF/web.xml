@@ -13,14 +13,6 @@
     <url-pattern>/game</url-pattern>
   </servlet-mapping>
   <servlet>
-    <servlet-name>rockets</servlet-name>
-    <servlet-class>game.RocketServer</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>rockets</servlet-name>
-    <url-pattern>/launch</url-pattern>
-  </servlet-mapping>
-  <servlet>
     <servlet-name>tick</servlet-name>
     <servlet-class>game.TickServer</servlet-class>
   </servlet>

@@ -14,17 +14,17 @@ socket.onmessage = function(message){
     console.log("Msg",message);
     var m = goog.json.parse(message.data);
     switch(m.type){
-    case "player":
-	players[m.identity] = m;
+    case "food":
+	food = m;
 	break;
-    case "path":
-	console.log("path",m);
-	players[m.identity].path = m.vertices;
+    case "player":
+	console.log("player",m);
+	players[m.identity] = m;
+	followPath(players[m.identity]);
 	break;
     case "scenery":
-	scenery[m.identity] = m;
+	scenery = m.points;
     }
 }
 socket.onerror = handler("error");
 socket.onclose = handler("close");
-

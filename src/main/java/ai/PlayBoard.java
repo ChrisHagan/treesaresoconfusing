@@ -1,7 +1,10 @@
 package ai;
 
+import java.util.Iterator;
+import java.util.Random;
 import java.util.List;
 import java.util.LinkedList;
+import transport.Transport;
 
 public class PlayBoard{
     public int width;
@@ -23,10 +26,13 @@ public class PlayBoard{
 	    if(this == terminus){
 		throw new RuntimeException(String.format("Illegal edge attempted to create a cycle at (%s,%s) : %s @ %s",xDelta,yDelta,this,terminusIndex));
 	    }
+	    if(obstacles.contains(x,y) || obstacles.contains(terminus.x,terminus.y)){
+		return;
+	    }
             edges.add(new Edge(terminus,diagonal? 14 : 10));
         }
         @Override
-            public String toString(){
+	public String toString(){
             return String.format("%s,%s",x,y);
         }
     }
@@ -39,9 +45,14 @@ public class PlayBoard{
         }
     }
     public Vertex[] vertices;
+    public PointSet obstacles;
     public PlayBoard(int width, int height){
+	this(width,height,new PointSet(width,height));
+    }
+    public PlayBoard(int width, int height, PointSet obstacles){
         this.width = width;
         this.height = height;
+	this.obstacles = obstacles;
         vertices = new Vertex[width * height];
         for(int row = 0; row < height; row++){
             for(int col = 0; col < width; col++){
@@ -79,7 +90,22 @@ public class PlayBoard{
             }
         }
     }
-    public List<Vertex> solve(int sx, int sy, int dx, int dy){
+    public int edgeSize(){
+	int n = 0;
+	for(Vertex v : vertices){
+	    n += v.edges.size();
+	}
+	return n;
+    }
+    public PlayBoard evolve(long seed){
+	PointSet newObstacles = new PointSet(width,height);
+	Random rand = new Random(seed);
+	for(int i = 0; i < 10; i++){
+	    newObstacles.add(new Transport.Point(rand.nextInt(width), rand.nextInt(height)));
+	}
+	return new PlayBoard(width,height,newObstacles);
+    }
+    public PointSet solve(int sx, int sy, int dx, int dy){
         HeapBasedPriorityQueue<Vertex> unsolved = new HeapBasedPriorityQueue<Vertex>();
         Vertex start = vertices[sy * width + sx];
         Vertex end = vertices[dy * width + dx];
@@ -101,17 +127,21 @@ public class PlayBoard{
                 }
             }
         }
-        List<Vertex> result = new LinkedList<Vertex>();
-	int cap = 0;
+	PointSet result = new PointSet(width,height);
+	LinkedList<Vertex> forward = new LinkedList<Vertex>();
         for(Vertex step = end; step != null; step = step.prev){
-            result.add(step);
-	    if(step == start){
-		return result;
-	    }
-	    if(cap++ > 1000){
-		break;
-	    }
+	    forward.add(step);
+	}
+	Iterator<Vertex> vs = forward.descendingIterator();
+	while(vs.hasNext()){
+	    Vertex v = vs.next();
+            result.add(new Transport.Point(v.x,v.y));
         }
-        return result;
+	if(result.contains(sx,sy)){
+	    return result;
+	}
+	else{
+	    return new PointSet(width,height);
+	}
     }
 }
