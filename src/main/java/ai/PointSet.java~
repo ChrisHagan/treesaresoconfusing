@@ -1,0 +1,45 @@
+package ai;
+
+import java.util.List;
+import java.util.LinkedList;
+
+public class PointSet<T extends Pointable>{
+    private final int width;
+    private final int height;
+    private final T[] points;
+    public PointSet(int width, int height){
+	this.width = width;
+	this.height = height;
+	this.points = (T[]) new Object[width * height];
+    }
+    public int inline(int x, int y){
+	return y * width + y;
+    }
+    public T get(int x, int y){
+	return points[inline(x,y)];
+    }
+    public void add(T value){
+	points[inline(value.getX(),value.getY())] = value;
+    }
+    public boolean contains(int x, int y){
+	return get(x,y) != null;
+    }
+    public List<T> values(){
+	List<T> l = new LinkedList<T>();
+	for(T p : points){
+	    if(p != null){
+		l.add(p);
+	    }
+	}
+	return l;
+    }
+    public int size(){
+	int n = 0;
+	for(T p : points){
+	    if(p != null){
+		n++;
+	    }
+	}
+	return n;
+    }
+}
